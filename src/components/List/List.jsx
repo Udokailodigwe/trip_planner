@@ -4,22 +4,10 @@ import { CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, 
 import PlaceDetails from '../PlaceDetails/PlaceDetails';
 import useStyles from './styles';
 
-const List = () => {
+const List = ({ places }) => {
     const classes = useStyles();
     const [type, setType] = useState('restuarants');
     const [rating, setRating] = useState('');
-
-    const places = [
-        { name: 'Cool Place' },
-        { name: 'Best Beer' },
-        { name: 'Best Stake' },
-        { name: 'Cool Place' },
-        { name: 'Best Beer' },
-        { name: 'Best Stake' },
-        { name: 'Cool Place' },
-        { name: 'Best Beer' },
-        { name: 'Best Stake' }
-    ];
 
     return (
         <div className={classes.container}>
@@ -27,7 +15,7 @@ const List = () => {
                 Restaurants, Hotels & Attractions around you
             </Typography>
             <FormControl className={classes.formControl}>
-                <inputLabel>Type</inputLabel>
+                <InputLabel>Type</InputLabel>
                 <Select value={type} onChange={(e) => setType(e.target.value)}>
                     <MenuItem value='restaurants'>Restaurants</MenuItem>
                     <MenuItem value='hotels'>Hotels</MenuItem>
@@ -35,7 +23,7 @@ const List = () => {
                 </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
-                <inputLabel>Rating</inputLabel>
+                <InputLabel>Rating</InputLabel>
                 <Select value={rating} onChange={(e) => setRating(e.target.value)}>
                     <MenuItem value={0}>All</MenuItem>
                     <MenuItem value={3}>Above 3</MenuItem>
