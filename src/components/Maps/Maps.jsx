@@ -6,20 +6,21 @@ import GoogleMapReact from 'google-map-react';
 // Paper is a div with bgcolor, useMediaQuery is for mobile responsiveness
 import { Paper, Typography, useMediaQuery } from '@material-ui/core';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
-import Rating from '@material-ui/lab';
+import Rating from '@material-ui/lab/Rating';
 
 import useStyles from './styles';
 
-const Maps = ({ setCoordinates, setBounds, coordinates, places }) => {
+const Maps = ({ setCoordinates, setBounds, coordinates, places, setChildClicked, weatherData }) => {
     const classes = useStyles();
 
     // isMobile will be set to false if mediaQuery is larger than 600px
     const isDesktop = useMediaQuery('(min-width:600px)');
 
+
     return (
         <div className={classes.mapContainer}>
             <GoogleMapReact
-                bootstrapURLKeys={{ key: 'AIzaSyCk0TFAoHT5W3XFv3HgtNQReml5DlCFHF0' }}
+                bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY }}
                 defaultCenter={coordinates}
                 center={coordinates}
                 defaultZoom={12}
@@ -29,7 +30,7 @@ const Maps = ({ setCoordinates, setBounds, coordinates, places }) => {
                     setCoordinates({ lat: e.center.lat, lng: e.center.lng });
                     setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw });
                 }}
-                onChildClick={''}
+                onChildClick={(child) => setChildClicked(child)}
             >
                 {places?.map((place, i) => (
                     <div
@@ -43,11 +44,17 @@ const Maps = ({ setCoordinates, setBounds, coordinates, places }) => {
                                 <Paper elevation={3} className={classes.paper}>
                                     <Typography ClassName={classes.typography} variant="subtitle2" gutterBottom>{place.name}</Typography>
                                     <img className={classes.pointer} src={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'} alt={place.name} />
+                                    <Rating size="small" value={Number(place.rating)} readOnly />
                                 </Paper>
                             ) : (
                                 <LocationOnOutlinedIcon color="primary" fontSize="large" />
                             )
                         }
+                    </div>
+                ))}
+                {weatherData?.list?.map((data, i) => (
+                    <div key={i} lat={data.coord.lat} lng={data.coord.lon}>
+                        <img src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`} height="100px" alt='weatherIcons' />
                     </div>
                 ))}
             </GoogleMapReact>
