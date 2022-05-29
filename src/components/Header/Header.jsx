@@ -12,7 +12,7 @@ const Header = ({ setCoordinates }) => {
     const onLoad = (autoC) => setAutocomplete(autoC)
 
     /**
-     * findind the lat and lng of newly searched location on header input
+     * finding the lat and lng of newly searched location on header input
      * derived from google map documentation.
      * */
     const onPlaceChanged = () => {
