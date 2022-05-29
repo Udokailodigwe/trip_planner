@@ -25,6 +25,7 @@ Material-UI was heavily applied to ensure perfect ui presentation and beauty.
 
 ### App Hosted on 
 
+https://udo-trip-planning-app.netlify.app/
 
 ### External API used
 <li>https://rapidapi.com/community/api/open-weather-map/</li>
